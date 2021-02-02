@@ -1,0 +1,82 @@
+<div class="site-header">
+  
+  <h1 class="site-title">
+    <%= themeConfig.siteName %>
+  </h1> 
+  <p class="site-description">
+    <%- themeConfig.siteDescription %>
+  </p>
+  <!-- <div class="menu-container nav-menu">
+    <% menus.forEach(function(menu) { %>
+      <% if (menu.openType === 'External') { %>
+        <a class="nav-2" href="<%= menu.link %>" class="menu" target="_blank">
+          <%= menu.name %>
+        </a>
+      <% } else { %>
+        <a class="nav-2" href="<%= menu.link %>" class="menu">
+          <%= menu.name %>
+        </a>
+      <% } %>
+    <% }); %>
+  </div> -->
+  <div class="social-container">
+    <% ['github', 'twitter', 'weibo', 'instagram', 'telegram'].forEach((item) => { %>
+      <% if (site.customConfig[item]) { %>
+        <a href="<%= site.customConfig[item] %>" target="_blank">
+          <i class="fab ri-<%= item %>-line"></i>
+        </a>
+      <% } %>
+    <% }) %>
+  </div>
+  
+</div>
+<div class="nav-box" id="navbar">
+  <a href="<%= themeConfig.domain %>">
+    <img class="avatar" src="<%= themeConfig.domain %>/images/avatar.png?v=<%= site.utils.now %>" alt="">
+  </a>
+  
+
+  <div class="nav-menu">
+    <% menus.forEach(function(menu) { %>
+      <% if (menu.openType === 'External') { %>
+        <a class="menu" href="<%= menu.link %>"  target="_blank">
+          <%= menu.name %>
+        </a>
+      <% } else { %>
+        <a class="menu" href="<%= menu.link %>" >
+          <%= menu.name %>
+        </a>
+      <% } %>
+    <% }); %>
+  </div>
+   
+    <div class="search">
+      <form id="gridea-search-form" action="<%= themeConfig.domain %>/search/">
+        <i class="ri-search-2-line"></i>
+        <input class="search-input" placeholder="Search : )" autocomplete="off" spellcheck="false" name="q" />
+      </form>
+      <a href="<%= themeConfig.domain %>">
+        <img class="avatar-r" src="<%= themeConfig.domain %>/images/avatar.png?v=<%= site.utils.now %>" alt="">
+      </a>
+    </div>
+
+  
+</div>
+
+
+  <script>
+    var navbar = document.getElementById('navbar')
+    var navbarTop = navbar.offsetTop; // 获取导航栏到父元素的顶部距离
+    // 监听滚动
+    window.onscroll = function () {
+      // 获取滚动的距离
+      var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop ;
+      /*方式一：动态绑定类*/
+      // 滚动高度>元素距离顶部的位置时添加类，否则移除类
+      scrollTop > navbarTop ? navbar.classList.add('fixed') : navbar.classList.remove('fixed')
+
+      /* 方式二：动态绑定属性
+      navbar.setAttribute('data-fixed', scrollTop > navbarTop ? 'fixed' : '');
+      */
+    }
+  </script>

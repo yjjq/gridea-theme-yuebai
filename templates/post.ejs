@@ -1,0 +1,199 @@
+<html>
+  <head>
+    <%- include('./includes/head', { siteTitle: `${post.title} | ${themeConfig.siteName}` }) %>
+    <meta name="description" content="<%= post.description %>" />
+    <meta property="og:title" content="<%= `${post.title} - ${themeConfig.siteName}` %>">
+    <meta property="og:description" content="<%= post.description %>" />
+    <meta property="og:type" content="articles">
+    <meta property="og:url" content="<%= post.link %>" />
+    <meta property="og:image" content="<%= `${themeConfig.showFeatureImage && post.feature || themeConfig.domain + '/images/avatar.png'}` %>">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="1200">
+    <meta name="twitter:title" content="<%= `${post.title} - ${themeConfig.siteName}` %>">
+    <meta name="twitter:description" content="<%= post.description %>">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="<%= post.link %>">
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  </head>
+  <body>
+    <%- include('./includes/header') %>
+    <div class="main" id="app">
+      <div class="main-content">
+        
+      
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              <%= post.title %>
+            </h2>
+            <div class="post-info">
+              <time class="post-time">
+                <i class="ri-calendar-2-line"></i>
+                <%= post.dateFormat %> 
+              </time>
+              <% post.tags.forEach(function(tag) { %>
+                <a href="<%= tag.link %>" class="post-tags">
+                  <i class="ri-quill-pen-line"></i>
+                  <%= tag.name %>
+                </a>
+              <% }); %>
+            </div>
+            <% if (themeConfig.showFeatureImage && post.feature) { %>
+              <div class="post-feature-image" >
+                <img src="<%= post.feature %>" alt="<%= post.title %>">
+              </div>
+            <% } %>
+            <div class="post-content"  v-pre>  
+              <%- post.content %>
+            </div>
+          </article>
+          <div id="eof"><span>EOF</span></div> 
+            <!-- Share to Twitter, Weibo, Telegram -->
+          <div class="share">
+            <div class="share-items-i">
+              <i class="ri-share-forward-line"></i>
+            </div>
+            <div class="share-items" @click="shareToTwitter">
+              <i class="ri-twitter-line"></i>
+            </div>
+            <div class="share-items" @click="shareToWeibo">
+              <i class="ri-weibo-line"></i>
+            </div>
+            <div class="share-items" @click="shareToTelegram">
+              <i class="ri-telegram-line"></i>
+            </div>
+          </div>
+
+        </div>
+        
+    
+        <% if (post.nextPost && !post.hideInList) { %>
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="<%= post.nextPost.link %>">
+              <h3 class="post-title">
+                <%= post.nextPost.title %>
+              </h3>
+            </a>
+          </div>  
+        <% } %>
+
+        <% if (typeof commentSetting !== 'undefined' && commentSetting.showComment) { %>
+          <% if (commentSetting.commentPlatform === 'gitalk') { %>
+            <%- include('./includes/gitalk') %>
+          <% } %>
+
+          <% if (commentSetting.commentPlatform === 'disqus') { %>
+            <%- include('./includes/disqus') %>
+          <% } %>
+        <% } %>
+            
+  
+
+        <%- include('./includes/footer') %>
+      </div>
+
+      <!-- Back to top -->
+      <div class="btt" @click="backToUp" v-show="scrolled">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.828l-4.95 4.95-1.414-1.414L12 8l6.364 6.364-1.414 1.414z"/></svg>
+      </div>
+      
+    </div>
+
+
+
+    <%- include('./includes/photoswipe') %>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="<%= site.themeConfig.domain %>/media/scripts/main.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+    <script>
+      //拿到预览框架，也就是上面的html代码
+      var pswpElement = document.querySelectorAll('.pswp')[0];
+      //定义图片数组变量
+      var imgitems;
+      /**
+      * 用于显示预览界面
+      * @param index 图片数组下标
+      */
+      function viewImg(index) {
+        //其它选项这里不做过多阐述，详情见官网
+        var pswpoptions = {
+          index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+          bgOpacity: 0.7, // 背景透明度，0-1
+          maxSpreadZoom: 3, // 缩放级别，不要太大
+        };
+        //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+        gallery.init()
+      }
+      /**
+      * 用于添加图片点击事件
+      * @param img 图片元素
+      * @param index 所属下标（在imgitems中的位置）
+      */
+      function addImgClick(img, index) {
+        img.onclick = function() {
+          viewImg(index)
+        }
+      }
+      /**
+      * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+      * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+      * 异步加载图片可在图片元素创建完成后调用此方法
+      */
+      function initImg() {
+        //重置图片数组
+        imgitems = [];
+        //查找class:post-content 下的所有img元素并遍历
+        var imgs = document.querySelectorAll('.post-content img');
+        for (var i = 0; i < imgs.length; i++) {
+          var img = imgs[i];
+          //本站相册初始为loading图片，真实图片放在data-src
+          var ds = img.getAttribute("data-src");
+          //创建image对象，用于获取图片宽高
+          var imgtemp = new Image();
+          //判断是否存在data-src
+          if (ds != null && ds.length > 0) {
+            imgtemp.src = ds
+          } else {
+            imgtemp.src = img.src
+          }
+          //判断是否存在缓存
+          if (imgtemp.complete) {
+            var imgobj = {
+              "src": imgtemp.src,
+              "w": imgtemp.width,
+              "h": imgtemp.height,
+            };
+            imgitems[i] = imgobj;
+            addImgClick(img, i);
+          } else {
+            console.log('进来了2')
+            imgtemp.index = i;
+            imgtemp.img = img;
+            imgtemp.onload = function() {
+              var imgobj = {
+                "src": this.src,
+                "w": this.width,
+                "h": this.height,
+              };
+              //不要使用push，因为onload前后顺序会不同
+              imgitems[this.index] = imgobj
+              //添加点击事件
+              addImgClick(this.img, this.index);
+            }
+          }
+        }
+      }
+      //初始化
+      initImg();
+    </script>
+
+  </body>
+</html> 

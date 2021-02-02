@@ -1,0 +1,250 @@
+.post-detail {
+  flex: 1;
+  .post {
+    padding: 24px 32px;
+
+    .post-feature-image {
+      margin-bottom: 24px;
+     
+      img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 24px;
+        border-radius: 2px;
+      }
+    }
+  
+    .post-title {
+      font-size: 32px;
+      text-align: center;
+      padding: 24px;
+      font-weight: 600;
+    }
+  
+    .post-info {
+      text-align: center;
+      font-size: 16px;
+      padding-bottom: 24px;
+  
+      .post-time {
+        color: @dark-gray;
+      }
+  
+      .post-tag {
+        padding: 8px 16px;
+      }
+    }
+  
+    .post-content {
+      a {
+        color: @main-color;
+        transition: all 0.3s;
+        &:hover {
+          color: @dark-main-color;
+          border-bottom: 1px dotted @dark-main-color;
+        }
+      }
+      img {
+        display: block;
+        // box-shadow: 0 0 30px #eee;
+        max-width: 100%;
+        border-radius: 2px;
+        margin: 24px auto;
+      }
+  
+      p {
+        line-height: 1.725;
+        margin-bottom: 24px;
+        font-size: 16px;
+        letter-spacing: 1.0382;
+      }
+      
+      p, li {
+        code {
+          padding: 0 3px;
+          margin: 0 2px;
+          background: rgba(195,195,195,0.41);
+          font-size: 0.9em;
+          border-radius: 2px;
+          display: inline-block;
+        }
+      }
+  
+      pre {
+        margin-bottom: 24px;
+        code {
+          font-size: 16px;
+          font-family: 'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;
+          padding: 1em;
+          border-radius: 5px;
+          line-height: 1.375;
+        }
+      }
+
+      blockquote {
+        background: #cccccc;
+        color: #666666;
+        padding: 16px;
+        border-left: 2px solid #006cff;
+        margin-bottom: 16px;
+        p {
+          margin-bottom: 0;
+        }
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: 1rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      tr {
+        border-top: 1px solid #dfe2e5;
+      }
+      td, th {
+        border: 1px solid #dfe2e5;
+        padding: .6em 1em;
+      }
+    
+      ul, ol {
+        padding-left: 24px;
+        line-height: 1.725;
+        margin-bottom: 16px;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        margin: 16px 0;
+        font-weight: bold;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      h2 {
+        font-size: 24px;
+      }
+      h3 {
+        font-size: 20px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+
+.next-post {
+  text-align: center;
+  padding: 24px 32px;
+  .next {
+    margin-bottom: 24px;
+    // color: @oc-gray-8;
+    color: #999999;
+  }
+  .post-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+#gitalk-container, #disqus_thread {
+  padding: 24px 32px;
+}
+
+@media (max-width: 600px) {
+  .post-detail {
+    .post {
+      padding: 16px;
+      .post-title {
+        font-size: 24px;
+        padding: 16px 0;
+      }
+    }
+  }
+}
+
+
+#eof {
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 1em;
+  margin: 2em auto;
+  font-weight: 100;
+  color: #c2c6cc;
+  font-family: Microsoft Yahei, sans-serif
+}
+#eof:before {
+  content: '——';
+  margin-right: 20px
+}
+#eof:after {
+  content: '——';
+  margin-left: 20px
+} 
+
+
+.share {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.share-items-i {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.share-items {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: inline-flex;
+}
+.share-items:hover{
+  background-color: #f6f8fa;
+}
+
+.btt  {
+  position: fixed;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 4rem;
+  margin-right: 5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  width: 5rem;
+  height: 5rem;
+  border-radius: 9999px;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  
+}
+.btt:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+}
+
+@media (prefers-color-scheme: dark) {
+  .next {
+    color: #999;
+  }
+  
+  .share-items:hover{
+    background-color: #cccccc;
+  }
+
+}

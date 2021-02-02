@@ -1,0 +1,22 @@
+<html>
+  <head>
+  <%- include('./includes/head', { siteTitle: `${tag.name} | ${themeConfig.siteName}` }) %>
+  </head>
+  <body>
+    <%- include('./includes/header') %>
+    <div class="main">
+      <div class="main-content">
+        
+        <div class="current-tag-container">
+            <h2 class="title">
+              <i class="ri-quill-pen-line"></i>  
+              <%= tag.name %>
+            </h2> 
+        </div>
+        <%- include('./includes/post-list') %>
+        <%- include('./includes/pagination') %>
+        <%- include('./includes/footer') %>
+      </div>
+    </div>
+  </body>
+</html>

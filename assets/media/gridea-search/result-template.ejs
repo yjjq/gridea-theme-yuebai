@@ -1,0 +1,29 @@
+<div class="post-container">
+  <%posts.forEach(function(post){%>
+    <article class="post search-post">
+
+      <a href="<%= post.link %>">
+        <h2 class="post-title"><%= post.title %></h2>
+      </a>
+
+      <div class="post-abstract">
+        <%-post.searchedPreview%>
+      </div>
+
+      
+      <div class="post-info">
+        <time class="post-time"> 
+          <i class="ri-calendar-2-line"></i>
+           <%= post.dateFormat %> 
+        </time>
+        <% post.tags.forEach(function(tag) { %>
+          <a href="<%= tag.link %>" class="post-tag">
+            <i class="ri-quill-pen-line"></i>
+             <%= tag.name %>
+          </a>
+        <% }); %>
+      </div>
+
+    </article>
+  <%});%>
+</div>

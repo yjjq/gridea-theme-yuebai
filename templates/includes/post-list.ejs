@@ -1,0 +1,40 @@
+<div class="post-container">
+  <% posts.forEach(function(post) { %>
+    <article class="post">
+
+      
+    <div class="post-l">    
+      <a href="<%= post.link %>">
+        <h2 class="post-title"><%= post.title %></h2>
+      </a>
+
+      <div class="post-abstract">
+        <%- post.abstract %>
+      </div>
+
+      <div class="post-info">
+        <time class="post-time"> 
+          <i class="i-info  ri-calendar-2-line"></i>
+           <%= post.dateFormat %> 
+        </time>
+        <% post.tags.forEach(function(tag) { %>
+          <a href="<%= tag.link %>" class="post-tag">
+            <i class="i-info ri-quill-pen-line"></i>
+             <%= tag.name %>
+          </a>
+        <% }); %>
+      </div>
+    </div>
+
+    <div class="post-r">
+      <% if (themeConfig.showFeatureImage && post.feature) { %>
+        <a href="<%= post.link %>" class="post-feature-image">
+          <img src="<%= post.feature %>" alt="<%= post.title %>">
+        </a>
+      <% } %>
+    </div>
+      
+
+    </article>
+  <% }); %>
+</div>
